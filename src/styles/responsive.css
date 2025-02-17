@@ -1,0 +1,34 @@
+@media screen and (max-width: 1200px) {
+  main .form-container {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: '... form form form ...';
+  }
+}
+
+@media screen and (max-width: 992px) {
+  main .form-container {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: '... form form form form ...';
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main .form-container {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas: '... form form form form form ...';
+  }
+}
+
+@media screen and (max-width: 576px) {
+  main .form-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: ' form form form';
+  }
+}
+
+@media screen and (max-width: 320px) {
+  main .form-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: ' form form form';
+  }
+}

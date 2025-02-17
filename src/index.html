@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link
+      rel="icon"
+      href="https://img.icons8.com/?size=100&id=114424&format=png&color=000000"
+      sizes="512x512"
+    />
+
+    <!-- Font-Family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font-Family -->
+  </head>
+  <body>
+    <header>
+      <notes-bar
+        img="./image/icons-notes.png"
+        altImage="Logo Notes"
+      ></notes-bar>
+    </header>
+
+    <main>
+      <div class="form-container">
+        <form action="#" id="form">
+          <div class="form-group">
+            <label for="title">Judul</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              minlength="10"
+              autocomplete="off"
+              aria-describedby="titleValidation"
+              pattern="^[A-Z][a-z]*(\s[A-Z][a-z]*)*$"
+              required
+            />
+            <p
+              id="titleValidation"
+              class="title-validation"
+              aria-live="polite"
+            ></p>
+          </div>
+          <div class="form-group">
+            <label for="shortDescription">Deskripsi Singkat</label>
+            <textarea
+              name="shortDescription"
+              id="shortDescription"
+              minlength="15"
+              aria-describedby="descriptionValidation"
+              required
+            ></textarea>
+            <p
+              id="descriptionValidation"
+              class="description-validation"
+              aria-live="polite"
+            ></p>
+          </div>
+          <button id="save-note" type="submit">Add Note</button>
+        </form>
+      </div>
+      <div class="note-list">
+        <h2>All Notes</h2>
+        <note-list></note-list>
+      </div>
+
+      <note-archive></note-archive>
+
+      <loading-indicator></loading-indicator>
+    </main>
+
+    <footer>
+      <note-footer></note-footer>
+    </footer>
+  </body>
+</html>
