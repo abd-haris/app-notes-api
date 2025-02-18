@@ -1,4 +1,10 @@
-import notesData from '../data/data.js';
+import {
+  unarchivedNotesApi,
+  getArchivedNotesFromApi,
+  getNotesFromApi,
+  showResponseMessage,
+  showSuccessMessage,
+} from '../data/remote/notes-api';
 
 class UnarchivedButton extends HTMLElement {
   _shadowRoot = null;
@@ -40,29 +46,25 @@ class UnarchivedButton extends HTMLElement {
     <button>${this._isArchived ? 'Archive' : 'Unarchive'}</button>
     `;
 
-    this.addEventListener('click', () => {
-      const noteItem = this.parentNode.parentNode;
+    this.addEventListener('click', async () => {
+      const noteItem = await getArchivedNotesFromApi();
+      const noteId = noteItem[0].id;
 
       if (noteItem) {
-        const noteId = noteItem._note.id;
-
-        const noteIndex = notesData.findIndex((note) => note.id === noteId);
-
-        if (noteIndex !== -1) {
-          if (this._isArchived) {
-            notesData[noteIndex].archived = true;
-            const archiveNote = document.querySelector('note-archive');
-            if (archiveNote) {
-              archiveNote.setNoteArchive(notesData[noteIndex]);
+        const noteArchived = noteItem[0].archived === false;
+        console.log(noteArchived);
+        if (noteArchived) {
+          try {
+            const response = await unarchivedNotesApi(noteId);
+            if (response.success) {
+              showSuccessMessage('Catatan tidak jadi diarsipkan');
+              const noteApi = await getNotesFromApi();
+              const noteList = document.querySelector('note-list');
+              noteList.setNoteList(noteApi);
             }
-          } else {
-            notesData[noteIndex].archived = false;
-            const noteList = document.querySelector('note-list');
-            if (noteList) {
-              noteList.setNoteList(notesData[noteIndex]);
-            }
+          } catch (error) {
+            showResponseMessage(error);
           }
-          noteItem.remove();
         }
       }
     });
@@ -70,3 +72,4 @@ class UnarchivedButton extends HTMLElement {
 }
 
 customElements.define('unarchive-button', UnarchivedButton);
+
